@@ -1,19 +1,108 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion versions.compileSdk
     defaultConfig {
         applicationId "com.ble.demo"
-        minSdkVersion 18
-        targetSdkVersion 21
-        versionCode 16
-        versionName "V1.1.5"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode versions.versionCode
+        versionName versions.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
+        def keyProps = new Properties()
+
+        debug {
+            keyProps.load(new FileInputStream(rootProject.file('signature/debug-keystore.properties')))
+            storeFile file(keyProps["storeFile"])
+            storePassword keyProps["storePass"]
+            keyAlias keyProps["keyAlias"]
+            keyPassword keyProps["keyPass"]
+        }
+
+        prerelease {
+            keyProps.load(new FileInputStream(rootProject.file('signature/prerelease-keystore.properties')))
+            storeFile file(keyProps["storeFile"])
+            storePassword keyProps["storePass"]
+            keyAlias keyProps["keyAlias"]
+            keyPassword keyProps["keyPass"]
+        }
+
         release {
+            keyProps.load(new FileInputStream(rootProject.file('signature/release-keystore.properties')))
+            storeFile file(keyProps["storeFile"])
+            storePassword keyProps["storePass"]
+            keyAlias keyProps["keyAlias"]
+            keyPassword keyProps["keyPass"]
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            }
+        }
+        prerelease {
+            applicationIdSuffix ".prerelease"
+            signingConfig signingConfigs.prerelease
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'armeabi', 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            }
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'armeabi'
+            }
+        }
+    }
+
+    flavorDimensions 'tier'
+    productFlavors {
+        dev {
+            dimension 'tier'
+        }
+        prod {
+            dimension 'tier'
+        }
+    }
+
+    variantFilter { variant ->
+        def flavorNames = variant.flavors.name
+        def buildTypeNames = variant.buildType.name
+        if ((flavorNames.contains("dev") && buildTypeNames.contains("prerelease"))
+                || (flavorNames.contains("dev") && buildTypeNames.contains("release"))
+                || (flavorNames.contains("prod") && buildTypeNames.contains("debug"))) {
+            setIgnore(true)
+        }
+    }
+
+    compileOptions {
+        encoding = "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "AndroidBleTools-${variant.flavorName}-${variant.buildType.name}-v${versions.versionName}.apk"
         }
     }
 }

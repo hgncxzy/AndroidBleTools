@@ -26,6 +26,9 @@ import com.ble.demo.ui.ScanFragment;
 import com.ble.demo.util.LeProxy;
 import com.ble.utils.ToastUtil;
 
+/**
+ * @author xzy
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case LeProxy.ACTION_GATT_SERVICES_DISCOVERED:
                     ToastUtil.show(mContext, "Services discovered: " + address);
+                    break;
+                default:
                     break;
             }
         }
@@ -144,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case FRAGMENT_MTU:
                     fragmentTabHost.addTab(ts, MtuFragment.class, null);
+                    break;
+                default:
                     break;
             }
         }

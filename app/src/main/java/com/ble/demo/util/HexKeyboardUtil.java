@@ -15,7 +15,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by JiaJiefei on 2016/8/18.
+ *
+ * @author xzy
  */
 public class HexKeyboardUtil {
 
@@ -39,7 +40,7 @@ public class HexKeyboardUtil {
         this.maxLength = maxLength;
 
         k1 = new Keyboard(act, R.xml.keyboard);
-        keyboardView = (KeyboardView) act.findViewById(R.id.keyboard_view);
+        keyboardView = act.findViewById(R.id.keyboard_view);
         keyboardView.setKeyboard(k1);
         keyboardView.setEnabled(true);
         keyboardView.setPreviewEnabled(false);
@@ -49,7 +50,9 @@ public class HexKeyboardUtil {
         hideSoftKeyboard(act, edit);
     }
 
-    // 隐藏系统的输入键盘
+    /**
+     * 隐藏系统的输入键盘
+     * */
     private void hideSoftKeyboard(Activity ctx, EditText edit) {
         ctx.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         try {

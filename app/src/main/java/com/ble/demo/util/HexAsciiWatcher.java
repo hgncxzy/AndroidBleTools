@@ -10,6 +10,8 @@ import com.ble.demo.R;
 
 /**
  * 16进制或ASCII码字符过滤
+ *
+ * @author xzy
  */
 public class HexAsciiWatcher implements TextWatcher {
     public static final int HEX = 0;
@@ -116,6 +118,8 @@ public class HexAsciiWatcher implements TextWatcher {
                         s.delete(i, i + 1);
                         i--;
                     }
+                    break;
+                default:
                     break;
             }
         }

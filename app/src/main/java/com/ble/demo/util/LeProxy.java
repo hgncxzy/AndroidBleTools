@@ -26,12 +26,14 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 /**
- * Created by JiaJiefei on 2017/2/17.
+ * Created by xzy
  */
 public class LeProxy {
     private static final String TAG = "LeProxy";
 
-    //各蓝牙事件的广播action
+    /**
+     * 各蓝牙事件的广播 action
+     * */
     public static final String ACTION_CONNECT_TIMEOUT = ".LeProxy.ACTION_CONNECT_TIMEOUT";
     public static final String ACTION_CONNECT_ERROR = ".LeProxy.ACTION_CONNECT_ERROR";
     public static final String ACTION_GATT_CONNECTED = ".LeProxy.ACTION_GATT_CONNECTED";

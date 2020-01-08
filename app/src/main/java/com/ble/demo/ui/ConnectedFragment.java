@@ -36,6 +36,9 @@ import com.ble.utils.TimeUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author xzy
+ */
 public class ConnectedFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "ConnectedFragment";
 
@@ -84,6 +87,9 @@ public class ConnectedFragment extends Fragment implements View.OnClickListener 
         }
     };
 
+    /**
+     * 接收数据
+     */
     private void displayRxData(Intent intent) {
         String address = intent.getStringExtra(LeProxy.EXTRA_ADDRESS);
         String uuid = intent.getStringExtra(LeProxy.EXTRA_UUID);
@@ -212,7 +218,9 @@ public class ConnectedFragment extends Fragment implements View.OnClickListener 
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    // 向勾选的设备发送数据
+    /**
+     * 向勾选的设备发送数据
+     */
     private void send() {
         String inputStr = mEdtInput.getText().toString();
 

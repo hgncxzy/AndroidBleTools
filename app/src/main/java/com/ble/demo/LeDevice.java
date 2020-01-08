@@ -2,6 +2,9 @@ package com.ble.demo;
 
 import com.ble.ble.LeScanRecord;
 
+/**
+ * @author xzy
+ */
 public class LeDevice {
 	private final String address;
 	private String name;
