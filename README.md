@@ -2,6 +2,8 @@
 
 一款基于 TTC_BLE_DEMO 开发的调试工具。方便好用。可以用于快速开发 ble 项目。
 
+*调试工具请参考 [Xbluetooth](https://github.com/duoshine/Xbluetooth)*
+
 ## [wiki](https://github.com/hgncxzy/AndroidBleTools/tree/master/wiki)
 
 另外可参考我的其他 BLE 项目
